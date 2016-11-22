@@ -5,6 +5,7 @@ var express = require('express'),
 	request = require("request"),
 	nicknames = [];
 
+app.use(express.static('public'))
 server.listen(3000);
 
 
@@ -25,7 +26,7 @@ io.sockets.on('connection',function(socket){
 	});
 
 	socket.on('send message',function(data){
-		var url = "http://127.0.0.1:5000/q/"+data, senti, sentiParsed
+		var url = "http://noobg1.pythonanywhere.com/q/"+data, senti, sentiParsed
 
 		request(url, function(error, response, body) {
 			 senti = JSON.parse(body)
