@@ -26,13 +26,21 @@ io.sockets.on('connection',function(socket){
 	});
 
 	socket.on('send message',function(data){
+		if( /[^a-zA-Z0-9]/.test( data )) data = 'empty message';
+		else if ((data) == "") data = 'empty message';
 		var url = "http://noobg1.pythonanywhere.com/q/"+data, senti, sentiParsed
 
 		request(url, function(error, response, body) {
+			if(error) {
+				console.log("Api call failed!")
+				io.sockets.emit('new message',{msg : data, nick : socket.nickname, sentiment : ""});
+			}
+				else {
 			 senti = JSON.parse(body)
 			 sentiParsed = String(senti['result'])
-		  console.log(sentiParsed);
+			console.log(sentiParsed);
 		  io.sockets.emit('new message',{msg : data, nick : socket.nickname, sentiment : sentiParsed});
+		}
 		});
 		
 

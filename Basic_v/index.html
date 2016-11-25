@@ -94,7 +94,9 @@
 					emoji = '<i class="em em-neutral_face"></i>';
 				else if(data.sentiment == 'neutral')
 					emoji = '<i class="em em-no_mouth"></i>';
-				else emoji = '<i class="em em-mask"></i>';
+				else if(data.sentiment == 'meh')
+					emoji = '<i class="em em-mask"></i>';
+				else emoji ="";
 
 				$chat.append( data.nick +  "&nbsp&nbsp" +':' + '<b>'+data.msg  + '</b>' + 
 					"&nbsp&nbsp" + emoji +"<br/>");
